@@ -1,0 +1,4 @@
+max_quality: 50
+legendary_quality: 80
+increase_quality_if_sell_in_less: 11
+increase_quality_if_sell_in_less_again: 6
