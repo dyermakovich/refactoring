@@ -3,8 +3,18 @@
 - php 7.3
 - phpunit 8.2
 
-## Installation
-To install dependencies run ```composer install```. To run test use ```./vendor/bin/phpunit```.
+## How to run tests without docker
+- install composer
+- install PHP 7.3
+- got to project directory
+- run ```composer install```
+- run ```./vendor/bin/phpunit```
+
+## How to run tests with docker
+- install docker
+- got to project directory
+- run ```docker compose up -d```
+- run ```docker compose exec www composer test```
 
 ## Introduction
 
