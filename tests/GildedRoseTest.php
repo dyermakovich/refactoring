@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use App\GildedRose;
-use App\Item\Item;
+use App\Item\ItemFactory;
 use PHPUnit\Framework\TestCase;
 
 class GildedRoseTest extends TestCase
@@ -15,9 +15,8 @@ class GildedRoseTest extends TestCase
      */
     public function testUpdateQualityTest(string $name, int $sellIn, int $quality, int $expectedSellIn, int $expectedQuality): void
     {
-        $item = new Item($name, $sellIn, $quality);
-
         $gildedRose = new GildedRose();
+        $item = ItemFactory::create($name, $sellIn, $quality);
         $gildedRose->updateQuality($item);
 
         $this->assertEquals($expectedSellIn, $item->getSellIn());

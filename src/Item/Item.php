@@ -41,9 +41,4 @@ final class Item implements ItemInterface
     {
         $this->quality = $quality;
     }
-
-    public function __toString(): string
-    {
-        return sprintf("{%s}, {%d}, {%d}", $this->name, $this->sellIn, $this->quality);
-    }
 }

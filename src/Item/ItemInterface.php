@@ -15,6 +15,4 @@ interface ItemInterface
     public function getQuality(): int;
 
     public function setQuality(int $quality): void;
-
-    public function __toString(): string;
 }
