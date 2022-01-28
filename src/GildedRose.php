@@ -4,17 +4,24 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Config\Config;
 use App\Item\ItemInterface;
-use App\Strategy\Factory\QualityStrategyFactory;
+use App\Strategy\Factory\QualityStrategyFactoryInterface;
 
-final class GildedRose
+final class GildedRose implements GildedRoseInterface
 {
-    public function updateQuality(ItemInterface $item)
+    /**
+     * @var QualityStrategyFactoryInterface
+     */
+    private $qualityStrategyFactory;
+
+    public function __construct(QualityStrategyFactoryInterface $qualityStrategyFactory)
     {
-        $config = new Config();
-        $factory = new QualityStrategyFactory($config);
-        $strategy = $factory->create($item);
+        $this->qualityStrategyFactory = $qualityStrategyFactory;
+    }
+
+    public function updateQuality(ItemInterface $item): void
+    {
+        $strategy = $this->qualityStrategyFactory->create($item);
         $strategy->update($item);
     }
 }

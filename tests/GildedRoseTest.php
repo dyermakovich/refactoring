@@ -4,20 +4,42 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use App\Config\ConfigFactory;
 use App\GildedRose;
+use App\GildedRoseInterface;
 use App\Item\ItemFactory;
+use App\Strategy\Factory\QualityStrategyFactory;
 use PHPUnit\Framework\TestCase;
 
-class GildedRoseTest extends TestCase
+final class GildedRoseTest extends TestCase
 {
+    /**
+     * @var GildedRoseInterface
+     */
+    private static $gildedRose;
+
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+
+        $config = ConfigFactory::create();
+        $strategyFactory = new QualityStrategyFactory($config);
+        self::$gildedRose = new GildedRose($strategyFactory);
+    }
+
+    private static function getGildedRose(): GildedRoseInterface
+    {
+        return self::$gildedRose;
+    }
+
     /**
      * @dataProvider itemsProvider
      */
     public function testUpdateQualityTest(string $name, int $sellIn, int $quality, int $expectedSellIn, int $expectedQuality): void
     {
-        $gildedRose = new GildedRose();
         $item = ItemFactory::create($name, $sellIn, $quality);
-        $gildedRose->updateQuality($item);
+
+        self::getGildedRose()->updateQuality($item);
 
         $this->assertEquals($expectedSellIn, $item->getSellIn());
         $this->assertEquals($expectedQuality, $item->getQuality());
